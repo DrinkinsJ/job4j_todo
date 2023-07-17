@@ -1,4 +1,4 @@
-package com.example.job4j_todo;
+package com.job4j.todo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
