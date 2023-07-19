@@ -52,7 +52,9 @@ public class HbmTaskRepository implements TaskRepository {
         boolean deleted = false;
         try {
             session.beginTransaction();
-            deleted = session.createQuery("from Task where id = :id").setParameter("id", id).executeUpdate() > 0;
+            deleted = session.createQuery("delete Task where id = :id")
+                    .setParameter("id", id)
+                    .executeUpdate() > 0;
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();
@@ -79,12 +81,12 @@ public class HbmTaskRepository implements TaskRepository {
     }
 
     @Override
-    public Collection<Task> findAllByDone(boolean isDone) {
+    public Collection<Task> findAllByDone(boolean done) {
         Session session = sf.openSession();
         List<Task> tasks = new ArrayList<>();
         try {
             session.beginTransaction();
-            tasks = session.createQuery("from Task where done =:done", Task.class).setParameter("done", isDone).list();
+            tasks = session.createQuery("from Task where done =:done", Task.class).setParameter("done", done).list();
             session.getTransaction().commit();
         } catch (Exception e) {
             session.getTransaction().rollback();

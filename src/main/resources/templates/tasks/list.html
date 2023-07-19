@@ -10,24 +10,64 @@
 
     <title>job4j_todo</title>
 </head>
+
+<style>
+    table {
+        width: 90%; /* Ширина таблицы в процентах */
+    }
+    .col1 {
+        width: 60%; /* Ширина ячейки */
+    }
+</style>
+
 <body>
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="/">Job4jDreamJob</a>
+            <a class="navbar-brand" href="/">Job4jToDo</a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav me-auto">
-                    <a class="nav-item nav-link" href="/">Index</a>
-                    <a class="nav-item nav-link active" th:href="@{/list}">All tasks</a>
-                    <a class="nav-item nav-link active" th:href="@{/tasks/list}">Done</a>
-                    <a class="nav-item nav-link active" th:href="@{/tasks/list}">New</a>
+                    <a class="nav-item nav-link active" th:href="@{/tasks}">All tasks</a>
+                    <a class="nav-item nav-link active" th:href="@{/tasks?done=true}">Done</a>
+                    <a class="nav-item nav-link active" th:href="@{/tasks?done=false}">New</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <div class="container mt-2">
-        <h3 class="mt-3">All task here</h3>
+        <div class="row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Task name</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task: ${tasks}">
+
+                    <td><a th:text="${task.id}"
+                           th:href="@{/tasks/{taskId}(taskId=${task.id})}"></a></td>
+
+                    <td class="col1"><a th:text="${task.name}"></a></td>
+
+                    <td th:text="${#temporals.format(task.created, 'dd-MM-yyyy HH:mm:ss')}"/>
+
+                    <td th:text="${task.done}?'Done':'In process'"/>
+                </tr>
+                </tbody>
+            </table>
+            <div class="mb-3 row">
+                <div class="row">
+                    <div class="col-6">
+                        <a class="btn btn-primary w-100" th:href="@{/tasks/create}">Add task</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </body>
