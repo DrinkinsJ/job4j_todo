@@ -115,19 +115,19 @@ public class HbmTaskRepository implements TaskRepository {
     @Override
     public boolean setDone(int id, boolean isDone) {
         Session session = sf.openSession();
-       boolean result = false;
-       try {
-           session.beginTransaction();
-           result = session.createQuery("update Task set done = :done where id = :id")
-                   .setParameter("done", isDone)
-                   .setParameter("id", id)
-                   .executeUpdate() > 0;
-           session.getTransaction().commit();
-       } catch (Exception e) {
-           session.getTransaction();
-       } finally {
-           session.close();
-       }
-       return result;
+        boolean result = false;
+        try {
+            session.beginTransaction();
+            result = session.createQuery("update Task set done = :done where id = :id")
+                    .setParameter("done", isDone)
+                    .setParameter("id", id)
+                    .executeUpdate() > 0;
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction();
+        } finally {
+            session.close();
+        }
+        return result;
     }
 }

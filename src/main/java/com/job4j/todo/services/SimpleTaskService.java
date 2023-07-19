@@ -1,7 +1,6 @@
 package com.job4j.todo.services;
 
 import com.job4j.todo.model.Task;
-import com.job4j.todo.repository.HbmTaskRepository;
 import com.job4j.todo.repository.TaskRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SimpleTaskService implements TaskService {
 
-   private final TaskRepository taskRepository;
+    private final TaskRepository taskRepository;
+
     @Override
     public Task create(Task task) {
         return taskRepository.create(task);
