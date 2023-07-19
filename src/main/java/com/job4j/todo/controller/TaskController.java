@@ -17,7 +17,7 @@ public class TaskController {
     private final TaskService taskService;
 
     @GetMapping
-    public String getList(Model model, @RequestParam(required= false) Boolean done) {
+    public String getList(Model model, @RequestParam(required = false) Boolean done) {
         if (done != null) {
             model.addAttribute("tasks", taskService.findAllByDone(done));
         } else {

@@ -11,14 +11,14 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class Job4jTodoApplication {
 
+    public static void main(String[] args) {
+        SpringApplication.run(Job4jTodoApplication.class, args);
+    }
+
     @Bean(destroyMethod = "close")
     public SessionFactory sf() {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
         return new MetadataSources(registry).buildMetadata().buildSessionFactory();
-    }
-
-    public static void main(String[] args) {
-        SpringApplication.run(Job4jTodoApplication.class, args);
     }
 }
