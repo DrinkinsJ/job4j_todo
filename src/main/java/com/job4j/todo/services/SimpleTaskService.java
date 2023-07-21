@@ -20,8 +20,8 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public void update(Task task) {
-        taskRepository.update(task);
+    public boolean update(Task task) {
+        return taskRepository.update(task);
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SimpleTaskService implements TaskService {
     }
 
     @Override
-    public boolean setDone(int id, boolean isDone) {
-        return taskRepository.setDone(id, isDone);
+    public boolean changeStatus(int id) {
+        return taskRepository.changeStatus(id);
     }
 }

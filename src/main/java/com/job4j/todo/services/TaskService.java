@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface TaskService {
     Task create(Task task);
 
-    void update(Task task);
+    boolean update(Task task);
 
     boolean deleteById(int id);
 
@@ -18,5 +18,5 @@ public interface TaskService {
 
     Optional<Task> findById(int id);
 
-    boolean setDone(int id, boolean isDone);
+    boolean changeStatus(int id);
 }

@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface TaskRepository {
     Task create(Task task);
 
-    void update(Task task);
+    boolean update(Task task);
 
     boolean deleteById(int id);
 
@@ -18,5 +18,5 @@ public interface TaskRepository {
 
     Optional<Task> findById(int id);
 
-    boolean setDone(int id, boolean isDone);
+    boolean changeStatus(int id);
 }

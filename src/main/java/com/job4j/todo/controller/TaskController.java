@@ -32,14 +32,9 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Task task, Model model) {
-        try {
-            taskService.create(task);
-            return "redirect:/tasks";
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "errors/404";
-        }
+    public String create(@ModelAttribute Task task) {
+        taskService.create(task);
+        return "redirect:/tasks";
     }
 
     @GetMapping("/{id}")
@@ -55,15 +50,12 @@ public class TaskController {
 
     @GetMapping("/changeStatus/{id}")
     public String changeStatus(Model model, @PathVariable int id) {
-        Optional<Task> taskOptional = taskService.findById(id);
-        if (taskOptional.isEmpty()) {
+        if (taskService.changeStatus(id)) {
+            return "redirect:/tasks/{id}";
+        } else {
             model.addAttribute("error", "Task not found");
             return "errors/404";
         }
-        Task task = taskOptional.get();
-        task.setDone(!task.isDone());
-        taskService.update(task);
-        return "redirect:/tasks/{id}";
     }
 
     @GetMapping("update/{id}")
@@ -79,22 +71,20 @@ public class TaskController {
 
     @PostMapping("update")
     public String update(Model model, @ModelAttribute Task task) {
-        try {
-            taskService.update(task);
+        if (taskService.update(task)) {
             return "redirect:/tasks";
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
+        } else {
+            model.addAttribute("error", "Task not found");
             return "errors/404";
         }
     }
 
     @GetMapping("delete/{id}")
     public String delete(Model model, @PathVariable int id) {
-        try {
-            taskService.deleteById(id);
+        if (taskService.deleteById(id)) {
             return "redirect:/tasks";
-        } catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
+        } else {
+            model.addAttribute("error", "Task not found");
             return "errors/404";
         }
     }
