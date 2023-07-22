@@ -26,6 +26,15 @@
                     <a class="nav-item nav-link" th:href="@{/tasks?done=true}">Done</a>
                     <a class="nav-item nav-link" th:href="@{/tasks?done=false}">New</a>
                 </div>
+                <a class="d-flex" th:if="${user.name == 'Guest' or user.name == null}">
+                    <a class="btn btn-primary shadow me-3"
+                       th:href="@{/users/register}">Sign up</a>
+                    <a class="btn btn-primary shadow me-3" th:href="@{/users/login}">Sign in</a>
+                </a>
+                <div class="d-flex" th:if="${user.name != 'Guest'}">
+                    <a class="btn btn-primary shadow me-3" href="#" th:text="${user.name}"></a>
+                    <a class="btn btn-primary shadow me-3" th:href="@{/users/logout}">Exit</a>
+                </div>
             </div>
         </div>
     </nav>

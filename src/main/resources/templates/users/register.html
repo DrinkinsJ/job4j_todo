@@ -42,23 +42,23 @@
     </nav>
     <div class="container">
         <div class="row">
-            <h2 class="text-center text-light mt-5">Sign up</h2>
+            <h2 class="text-center text-dark mt-5">Sign up</h2>
             <div class="col-3"></div>
             <div class="col-6">
                 <form class="mt-3" method="post" th:action="@{/users/register}">
                     <div class="mb-3">
-                        <label class="form-label text-white" for="name"><b>Name</b></label>
-                        <input class="form-control" id="name" name="name" placeholder="Name"
+                        <label class="form-label text-dark" for="name"><b>Name</b></label>
+                        <input class="form-control" id="name" name="name" placeholder="user@name"
                                required type="text">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-white" for="email"><b>Email</b></label>
-                        <input class="form-control" id="email" name="email" placeholder="Email"
-                               required type="email">
+                        <label class="form-label text-dark" for="login"><b>Login</b></label>
+                        <input class="form-control" id="login" name="login" placeholder="user@login"
+                               required type="text">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label text-white" for="password"><b>Password</b></label>
-                        <input class="form-control" id="password" name="password" placeholder="Password"
+                        <label class="form-label text-dark" for="password"><b>Password</b></label>
+                        <input class="form-control" id="password" name="password" placeholder="user@password"
                                required type="password">
                     </div>
                     <p class="text-center text-danger" th:text="${message}"></p>
