@@ -50,12 +50,11 @@ public class TaskController {
 
     @GetMapping("/changeStatus/{id}")
     public String changeStatus(Model model, @PathVariable int id) {
-        if (taskService.changeStatus(id)) {
-            return "redirect:/tasks/{id}";
-        } else {
+        if (!taskService.changeStatus(id)) {
             model.addAttribute("error", "Task not found");
             return "errors/404";
         }
+        return "redirect:/tasks/{id}";
     }
 
     @GetMapping("update/{id}")
@@ -71,21 +70,19 @@ public class TaskController {
 
     @PostMapping("update")
     public String update(Model model, @ModelAttribute Task task) {
-        if (taskService.update(task)) {
-            return "redirect:/tasks";
-        } else {
+        if (!taskService.update(task)) {
             model.addAttribute("error", "Task not found");
             return "errors/404";
         }
+        return "redirect:/tasks";
     }
 
     @GetMapping("delete/{id}")
     public String delete(Model model, @PathVariable int id) {
-        if (taskService.deleteById(id)) {
-            return "redirect:/tasks";
-        } else {
+        if (!taskService.deleteById(id)) {
             model.addAttribute("error", "Task not found");
             return "errors/404";
         }
+        return "redirect:/tasks";
     }
 }
