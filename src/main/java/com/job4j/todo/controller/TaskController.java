@@ -1,6 +1,7 @@
 package com.job4j.todo.controller;
 
 import com.job4j.todo.model.Task;
+import com.job4j.todo.model.User;
 import com.job4j.todo.services.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -32,7 +33,8 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Task task) {
+    public String create(@ModelAttribute Task task, @SessionAttribute User user) {
+        task.setUser(user);
         taskService.create(task);
         return "redirect:/tasks";
     }
@@ -69,7 +71,8 @@ public class TaskController {
     }
 
     @PostMapping("update")
-    public String update(Model model, @ModelAttribute Task task) {
+    public String update(Model model, @ModelAttribute Task task, @SessionAttribute User user) {
+        task.setUser(user);
         if (!taskService.update(task)) {
             model.addAttribute("error", "Task not found");
             return "errors/404";

@@ -59,6 +59,7 @@
                     <th scope="col">Task name</th>
                     <th scope="col">Created</th>
                     <th scope="col">Status</th>
+                    <th scope="col">User</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -72,6 +73,8 @@
                     <td th:text="${#temporals.format(task.created, 'dd-MM-yyyy HH:mm:ss')}"/>
 
                     <td th:text="${task.done}?'Done':'In process'"/>
+
+                    <td th:text="${task.user.name}"/>
                 </tr>
                 </tbody>
             </table>
