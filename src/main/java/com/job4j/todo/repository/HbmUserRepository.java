@@ -22,7 +22,7 @@ public class HbmUserRepository implements UserRepository {
             crudRepository.run(session -> session.persist(user));
             optionalUser = Optional.of(user);
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
         }
         return optionalUser;
     }

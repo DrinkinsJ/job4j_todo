@@ -29,7 +29,7 @@ public class HbmTaskRepository implements TaskRepository {
             crudRepository.run(session -> session.merge(task));
             result = true;
         } catch (Exception e) {
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
         }
         return result;
     }

@@ -81,7 +81,7 @@ public class CrudRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            log.error(e.getMessage());
+            log.error(e.getMessage(), e);
             throw e;
         } finally {
             session.close();
