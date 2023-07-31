@@ -2,6 +2,7 @@ package com.job4j.todo.controller;
 
 import com.job4j.todo.model.Task;
 import com.job4j.todo.model.User;
+import com.job4j.todo.services.PriorityService;
 import com.job4j.todo.services.TaskService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class TaskController {
 
     private final TaskService taskService;
+    private final PriorityService priorityService;
 
     @GetMapping
     public String getList(Model model, @RequestParam(required = false) Boolean done) {
@@ -28,7 +30,8 @@ public class TaskController {
     }
 
     @GetMapping("/create")
-    public String getCreationPage() {
+    public String getCreationPage(Model model) {
+        model.addAttribute("priorities", priorityService.findAll());
         return "tasks/create";
     }
 
@@ -67,6 +70,7 @@ public class TaskController {
             return "errors/404";
         }
         model.addAttribute("task", taskOptional.get());
+        model.addAttribute("priorities", priorityService.findAll());
         return "tasks/update";
     }
 

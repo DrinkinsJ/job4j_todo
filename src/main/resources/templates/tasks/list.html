@@ -60,6 +60,7 @@
                     <th scope="col">Created</th>
                     <th scope="col">Status</th>
                     <th scope="col">User</th>
+                    <th scope="col">Priorities</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -75,6 +76,8 @@
                     <td th:text="${task.done}?'Done':'In process'"/>
 
                     <td th:text="${task.user.name}"/>
+
+                    <td th:text="${task.priority.position}"/>
                 </tr>
                 </tbody>
             </table>
