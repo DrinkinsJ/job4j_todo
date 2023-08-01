@@ -1,5 +1,6 @@
 package com.job4j.todo;
 
+import com.job4j.todo.model.Category;
 import com.job4j.todo.model.Task;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -15,9 +16,9 @@ public class ToDoRun {
                 .configure().build();
         try {
             SessionFactory sf = new MetadataSources(registry).buildMetadata().buildSessionFactory();
-            var stored = listOf("FROM Task f JOIN FETCH f.priority", Task.class, sf);
-            for (Task task : stored) {
-                System.out.println(task.getPriority());
+            var stored = listOf("FROM Category", Category.class, sf);
+            for (Category category : stored) {
+                System.out.println(category);
             }
         } catch (Exception e) {
             e.printStackTrace();

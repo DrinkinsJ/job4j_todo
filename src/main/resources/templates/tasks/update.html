@@ -64,6 +64,14 @@
                         </select>
                     </div>
 
+                    <div class="mb-3">
+                        <label for="category"><b>Categories</b></label>
+                        <select class="form-control" id="category" name="categoryId" multiple="multiple">
+                            <option th:each="category : ${categories}" th:text="${category.name}"
+                                    th:value="${category.id}"></option>
+                        </select>
+                    </div>
+
                     <div class="col-3"></div>
                     <div class="mb-3 row">
                         <div class="col-6"></div>

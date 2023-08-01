@@ -22,7 +22,14 @@
     }
 
     .col1 {
-        width: 60%; /* Ширина ячейки */
+        width: 2%; /* Ширина ячейки */
+    }
+
+    .col2 {
+        width: 50%; /* Ширина ячейки */
+    }
+    .col3 {
+        width: 15%; /* Ширина ячейки */
     }
 </style>
 
@@ -57,6 +64,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Task name</th>
+                    <th scope="col">Categories</th>
                     <th scope="col">Created</th>
                     <th scope="col">Status</th>
                     <th scope="col">User</th>
@@ -66,16 +74,23 @@
                 <tbody>
                 <tr th:each="task: ${tasks}">
 
-                    <td><a th:href="@{/tasks/{taskId}(taskId=${task.id})}"
+                    <td class="col1"><a th:href="@{/tasks/{taskId}(taskId=${task.id})}"
                            th:text="${task.id}"></a></td>
 
-                    <td class="col1"><a th:text="${task.name}"></a></td>
+                    <td class="col2"><a th:text="${task.name}"></a></td>
 
-                    <td th:text="${#temporals.format(task.created, 'dd-MM-yyyy HH:mm:ss')}"/>
+                    <td>
+                        <ul id="categories">
+                            <ol th:each="category : ${task.categories}"
+                                th:text="${category.name}"></ol>
+                        </ul>
+                    </td>
 
-                    <td th:text="${task.done}?'Done':'In process'"/>
+                    <td th:text="${#temporals.format(task.created, 'dd-MM-yyyy HH:mm:ss')}"></td>
 
-                    <td th:text="${task.user.name}"/>
+                    <td th:text="${task.done}?'Done':'In process'"></td>
+
+                    <td th:text="${task.user.name}"></td>
 
                     <td th:text="${task.priority.position}"/>
                 </tr>
