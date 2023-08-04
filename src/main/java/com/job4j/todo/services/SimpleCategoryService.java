@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -19,7 +20,7 @@ public class SimpleCategoryService implements CategoryService {
     }
 
     @Override
-    public Collection<Category> findByIds(Collection<Integer> ids) {
+    public Set<Category> findByIds(Collection<Integer> ids) {
         return categoryRepository.findByIds(ids);
     }
 }

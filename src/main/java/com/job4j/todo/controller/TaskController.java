@@ -11,8 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @AllArgsConstructor
@@ -20,6 +20,7 @@ import java.util.Optional;
 public class TaskController {
 
     private final TaskService taskService;
+    
     private final PriorityService priorityService;
 
     private final CategoryService categoryService;
@@ -42,10 +43,9 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Task task, @SessionAttribute User user, @RequestParam("categoryId") List<Integer> categoryId) {
+    public String create(@ModelAttribute Task task, @SessionAttribute User user, @RequestParam("categoryId") Set<Integer> categoryId) {
         task.setUser(user);
-        var categories = (List<Category>) categoryService.findByIds(categoryId);
-        task.setCategories(categories);
+        task.setCategories(categoryService.findByIds(categoryId));
         taskService.create(task);
         return "redirect:/tasks";
     }
@@ -84,9 +84,8 @@ public class TaskController {
     }
 
     @PostMapping("update")
-    public String update(Model model, @ModelAttribute Task task, @SessionAttribute User user, @RequestParam("categoryId") List<Integer> categoryId) {
-        var categories = (List<Category>) categoryService.findByIds(categoryId);
-        task.setCategories(categories);
+    public String update(Model model, @ModelAttribute Task task, @SessionAttribute User user, @RequestParam("categoryId") Set<Integer> categoryId) {
+        task.setCategories(categoryService.findByIds(categoryId));
         task.setUser(user);
         if (!taskService.update(task)) {
             model.addAttribute("error", "Task not found");

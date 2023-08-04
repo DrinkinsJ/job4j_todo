@@ -4,8 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "tasks")
@@ -37,5 +36,5 @@ public class Task {
             name = "categories_task",
             joinColumns = {@JoinColumn (name = "task_id")},
             inverseJoinColumns = {@JoinColumn (name = "categories_id")})
-    private List<Category> categories = new ArrayList<>();
+    private Set<Category> categories = new HashSet<>();
 }

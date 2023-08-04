@@ -3,10 +3,10 @@ package com.job4j.todo.services;
 import com.job4j.todo.model.Category;
 
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 
 public interface CategoryService {
     Collection<Category> findAll();
 
-    Collection<Category> findByIds(Collection<Integer> ids);
+    Set<Category> findByIds(Collection<Integer> ids);
 }

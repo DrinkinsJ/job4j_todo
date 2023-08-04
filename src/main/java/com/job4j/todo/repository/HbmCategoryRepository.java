@@ -4,9 +4,7 @@ import com.job4j.todo.model.Category;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 @AllArgsConstructor
@@ -20,7 +18,8 @@ public class HbmCategoryRepository implements CategoryRepository {
     }
 
     @Override
-    public Collection<Category> findByIds(Collection<Integer> ids) {
-        return crudRepository.query("FROM Category Where id IN :listId", Category.class, Map.of("listId", ids));
+    public Set<Category> findByIds(Collection<Integer> ids) {
+        var categories =  crudRepository.query("FROM Category Where id IN :listId", Category.class, Map.of("listId", ids));
+        return new HashSet<>(categories);
     }
 }

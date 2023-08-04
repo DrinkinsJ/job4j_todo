@@ -1,5 +1,6 @@
 package com.job4j.todo.repository;
 
+import com.job4j.todo.model.Category;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
@@ -7,11 +8,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Slf4j
 @AllArgsConstructor
@@ -87,4 +87,6 @@ public class CrudRepository {
             session.close();
         }
     }
+
+
 }
