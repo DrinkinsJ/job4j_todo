@@ -1,17 +1,18 @@
 package com.job4j.todo.controller;
 
 import com.job4j.todo.model.User;
+import com.job4j.todo.services.TimeService;
 import com.job4j.todo.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.TimeZone;
 
 @Controller
 @RequestMapping("/users")
@@ -20,13 +21,16 @@ public class UserController {
 
     private final UserService userService;
 
+    private final TimeService timeService;
     @GetMapping("/login")
     public String getLoginPage() {
         return "users/login";
     }
 
     @GetMapping("/register")
-    public String getRegisterPage() {
+    public String getRegisterPage(Model model) {
+        List<TimeZone> timeZones = timeService.getTimeZones();
+        model.addAttribute("timeZones", timeZones);
         return "users/register";
     }
 
@@ -37,12 +41,9 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(Model model, @ModelAttribute User user) {
-        Optional<User> userOptional = userService.save(user);
-        if (userOptional.isEmpty()) {
-            model.addAttribute("error", "User with this email already exists");
-            return "user/register";
-        }
+    public String register(@ModelAttribute User user, @RequestParam("timezone") String timeZone) {
+        user.setTimeZone(Objects.requireNonNullElse(timeZone, "UTC"));
+        userService.save(user);
         return "redirect:/users/login";
     }
 

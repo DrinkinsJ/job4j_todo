@@ -1,16 +1,18 @@
 package com.job4j.todo.controller;
 
-import com.job4j.todo.model.Category;
 import com.job4j.todo.model.Task;
 import com.job4j.todo.model.User;
 import com.job4j.todo.services.CategoryService;
 import com.job4j.todo.services.PriorityService;
 import com.job4j.todo.services.TaskService;
+import com.job4j.todo.services.TimeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
+import java.util.Collection;
 import java.util.Optional;
 import java.util.Set;
 
@@ -20,17 +22,25 @@ import java.util.Set;
 public class TaskController {
 
     private final TaskService taskService;
-    
+
     private final PriorityService priorityService;
+
+    private final TimeService timeService;
 
     private final CategoryService categoryService;
 
     @GetMapping
-    public String getList(Model model, @RequestParam(required = false) Boolean done) {
+    public String getList(Model model, @RequestParam(required = false) Boolean done, HttpSession httpSession) {
+        Collection<Task> tasks;
+        var user = (User) httpSession.getAttribute("user");
         if (done != null) {
-            model.addAttribute("tasks", taskService.findAllByDone(done));
+            tasks = taskService.findAllByDone(done);
+            tasks.forEach(task -> timeService.addUserTimeZone(user, task));
+            model.addAttribute("tasks", tasks);
         } else {
-            model.addAttribute("tasks", taskService.findAll());
+            tasks = taskService.findAll();
+            tasks.forEach(task -> timeService.addUserTimeZone(user, task));
+            model.addAttribute("tasks", tasks);
         }
         return "tasks/list";
     }

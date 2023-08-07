@@ -1,0 +1,3 @@
+ALTER TABLE tasks
+    DROP COLUMN created,
+    ADD COLUMN created TIMESTAMP WITHOUT TIME ZONE DEFAULT now();

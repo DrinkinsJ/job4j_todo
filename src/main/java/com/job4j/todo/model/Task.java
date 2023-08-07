@@ -4,7 +4,10 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
+
+import static com.job4j.todo.services.TimeService.toUTCZeroTime;
 
 @Entity
 @Table(name = "tasks")
@@ -20,7 +23,7 @@ public class Task {
     private int id;
     private String name;
     private String description;
-    private LocalDateTime created = LocalDateTime.now();
+    private LocalDateTime created = toUTCZeroTime();
     private boolean done;
 
     @ManyToOne

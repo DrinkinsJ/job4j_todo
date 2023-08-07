@@ -1,0 +1,1 @@
+alter table todo_user add column uzer_zone varchar;
