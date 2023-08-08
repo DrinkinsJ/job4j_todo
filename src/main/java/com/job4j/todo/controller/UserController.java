@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TimeZone;
 
-import static com.job4j.todo.utils.TimeUtils.getTimeZones;
+import static com.job4j.todo.utils.TimeUtils.*;
 
 @Controller
 @RequestMapping("/users")
