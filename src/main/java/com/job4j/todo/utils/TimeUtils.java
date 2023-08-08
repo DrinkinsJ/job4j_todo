@@ -1,24 +1,24 @@
-package com.job4j.todo.services;
+package com.job4j.todo.utils;
 
 import com.job4j.todo.model.Task;
 import com.job4j.todo.model.User;
-import org.springframework.stereotype.Service;
+import lombok.experimental.UtilityClass;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TimeZone;
 
-@Service
-public class TimeService {
+@UtilityClass
+public class TimeUtils {
 
-
-    public static LocalDateTime toUTCZeroTime() {
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        /* minusHours(3) - приводим UTC-3 к UTC-0 */
-        return currentDateTime.atZone(ZoneOffset.UTC).minusHours(3).toLocalDateTime();
+    public LocalDateTime toUTCZeroTime() {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        ZonedDateTime zonedDateTime = localDateTime.atZone(ZoneOffset.systemDefault());
+        return zonedDateTime.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
     }
 
     public List<TimeZone> getTimeZones() {

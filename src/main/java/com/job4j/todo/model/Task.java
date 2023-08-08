@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.job4j.todo.services.TimeService.toUTCZeroTime;
+import static com.job4j.todo.utils.TimeUtils.toUTCZeroTime;
 
 @Entity
 @Table(name = "tasks")

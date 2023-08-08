@@ -1,7 +1,6 @@
 package com.job4j.todo.controller;
 
 import com.job4j.todo.model.User;
-import com.job4j.todo.services.TimeService;
 import com.job4j.todo.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.TimeZone;
 
+import static com.job4j.todo.utils.TimeUtils.getTimeZones;
+
 @Controller
 @RequestMapping("/users")
 @AllArgsConstructor
@@ -21,7 +22,6 @@ public class UserController {
 
     private final UserService userService;
 
-    private final TimeService timeService;
     @GetMapping("/login")
     public String getLoginPage() {
         return "users/login";
@@ -29,7 +29,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
-        List<TimeZone> timeZones = timeService.getTimeZones();
+        List<TimeZone> timeZones = getTimeZones();
         model.addAttribute("timeZones", timeZones);
         return "users/register";
     }
